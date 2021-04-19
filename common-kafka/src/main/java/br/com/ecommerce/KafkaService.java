@@ -33,7 +33,7 @@ public class KafkaService<T> implements Closeable {
     }
 
 
-    void run() {
+    void run(){
         while (true) {
             var records = consumer.poll(Duration.ofMillis(1000));
             if (!records.isEmpty()) {
@@ -41,10 +41,9 @@ public class KafkaService<T> implements Closeable {
                 for (var record : records) {
                     try {
                         parse.consume(record);
-                    } catch (ExecutionException e) {
-                        // SO FAR JUST LOGGING THE EXEPTION FOR THIS MESSAGE
-                        e.printStackTrace();
-                    } catch (InterruptedException e) {
+                    } catch (Exception e) {
+                        // ONLY CATCHES EXCEPTION BECAUSE NO MATTER WHICH EXCEPTION
+                        // I WANT TO RECOVER AND PARSE TO NEXT ONE
                         // SO FAR JUST LOGGING THE EXEPTION FOR THIS MESSAGE
                         e.printStackTrace();
                     }
