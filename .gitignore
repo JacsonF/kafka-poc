@@ -1,7 +1,7 @@
 /target/
 !.mvn/wrapper/maven-wrapper.jar
 
-/idea
+/.idea
 
 ### Git ###
 # Created by git for backups. To disable backups in Git:
