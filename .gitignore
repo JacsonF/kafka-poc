@@ -1,7 +1,13 @@
 /target/
+*/target/**
+**/META-INF/
 !.mvn/wrapper/maven-wrapper.jar
 
-/.idea
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
 
 ### Git ###
 # Created by git for backups. To disable backups in Git:
