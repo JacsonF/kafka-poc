@@ -15,6 +15,7 @@
         <module>service-new-order</module>
         <module>common-kafka</module>
         <module>service-new-user</module>
+        <module>service-http</module>
     </modules>
 
     <properties>
@@ -34,7 +35,6 @@
             <artifactId>slf4j-simple</artifactId>
             <version>1.7.30</version>
         </dependency>
-
         <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
         <dependency>
             <groupId>com.google.code.gson</groupId>
