@@ -19,18 +19,17 @@ public class NewOrder {
                 var email = Math.random() + "@gmail.com";
                 for ( var i =0; i<10; i++) {
 
-                    var userId =UUID.randomUUID().toString();
                     var orderId =UUID.randomUUID().toString();
                     var amout = new BigDecimal(Math.random()* 500+1);
 
 
-                    var order = new Order(userId,orderId,amout,email);
-                    dispatcher.send("ECOMMERCE_NEW_ORDER" ,userId,order);
+                    var order = new Order(orderId,amout,email);
+                    dispatcher.send("ECOMMERCE_NEW_ORDER" ,email, order);
 
                     var subject = "jackson@kafka.com";
                     var body = "Tank you for your order! We are processing your order";
                     Email emailCode = new Email(subject,body);
-                    emailDispatcher.send("ECOMMERCE_SEND_EMAIL",userId,emailCode);
+                    emailDispatcher.send("ECOMMERCE_SEND_EMAIL",email,emailCode);
                 }
             }
         }

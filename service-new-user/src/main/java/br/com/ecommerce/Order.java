@@ -3,12 +3,11 @@ package br.com.ecommerce;
 import java.math.BigDecimal;
 
 public class Order {
-    private final String userId,orderId;
+    private final String orderId;
     private final BigDecimal value;
     private final String email;
 
-    public Order(String userId, String orderId, BigDecimal value, String email) {
-        this.userId = userId;
+    public Order( String orderId, BigDecimal value, String email) {
         this.orderId = orderId;
         this.value = value;
         this.email = email;
@@ -16,9 +15,5 @@ public class Order {
 
     public String getEmail() {
         return email;
-    }
-
-    public String getUserId() {
-        return userId;
     }
 }
