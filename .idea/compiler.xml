@@ -11,9 +11,13 @@
         <module name="common-kafka" />
         <module name="service-new-order" />
         <module name="service-new-user" />
+        <module name="service-reading-report" />
         <module name="service-fraud-detector" />
         <module name="service-email" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="untitled" target="11" />
+    </bytecodeTargetLevel>
   </component>
 </project>

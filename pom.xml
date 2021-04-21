@@ -16,6 +16,8 @@
         <module>common-kafka</module>
         <module>service-new-user</module>
         <module>service-http</module>
+        <module>untitled</module>
+        <module>service-reading-report</module>
     </modules>
 
     <properties>
