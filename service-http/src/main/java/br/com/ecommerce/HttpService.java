@@ -12,7 +12,7 @@ public class HttpService {
         server.setHandler(context);
         context.setContextPath("/");
         context.addServlet(new ServletHolder(new NewOrderServlet()),"/new");
-        context.addServlet(new ServletHolder(new GenerateAllReportsServlet()),"/admin/generate-");
+        context.addServlet(new ServletHolder(new GenerateAllReportsServlet()),"/admin/generate-reports");
 
         server.start();
         server.join();
