@@ -34,12 +34,12 @@ public class NewOrderServlet extends HttpServlet{
             var amout = new BigDecimal(req.getParameter("amout"));
 
             var order = new Order(orderId,amout,email);
-            orderKafkaDispather.send("ECOMMERCE_NEW_ORDER" ,email, order);
+            orderKafkaDispather.send("ECOMMERCE_NEW_ORDER" ,email,new CorrelationId(NewOrderServlet.class.getSimpleName()), order);
 
             var subject = "jackson@kafka.com";
             var body = "Tank you for your order! We are processing your order";
             Email emailCode = new Email(subject,body);
-            emailKafkaDispather.send("ECOMMERCE_SEND_EMAIL",email,emailCode);
+            emailKafkaDispather.send("ECOMMERCE_SEND_EMAIL",email,new CorrelationId(NewOrderServlet.class.getSimpleName()),emailCode);
 
             System.out.println("new order sent successfully");
 

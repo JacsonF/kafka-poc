@@ -16,7 +16,7 @@ public class FraudeDetectorService {
             service.run();
         }
     }
-    private void parse(ConsumerRecord<String,Order>record) throws ExecutionException, InterruptedException {
+    private void parse(ConsumerRecord<String,Message<Order>>record) throws ExecutionException, InterruptedException {
         System.out.println("------------------------------------");
         System.out.println("Processing order, cheking for fraud");
         System.out.println(record.key());
@@ -28,14 +28,15 @@ public class FraudeDetectorService {
         } catch (InterruptedException ex) {
             System.out.println(ex);
         }
-        var order = record.value();
+        var message = record.value();
+        var order = message.getPayload();
         if (isFraud(order)){
             // pretending that the fraud happens when the amout is >=4500
             System.out.println("Order is a fraud!!!");
-            dispather.send("ECOMMERCE_ORDER_REJECTED",order.getEmail(),order);
+            dispather.send("ECOMMERCE_ORDER_REJECTED",order.getEmail(), message.getId().continueWith(FraudeDetectorService.class.getSimpleName()),order);
         }else{
             System.out.println("Aproved :"+ order);
-            dispather.send("ECOMMERCE_ORDER_APPROVED",order.getEmail(),order);
+            dispather.send("ECOMMERCE_ORDER_APPROVED",order.getEmail(),message.getId().continueWith(FraudeDetectorService.class.getSimpleName()),order);
         }
         System.out.println("SUCESSO");
     }

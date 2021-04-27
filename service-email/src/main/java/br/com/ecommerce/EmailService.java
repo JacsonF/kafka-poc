@@ -12,12 +12,15 @@ public class EmailService {
         }
     }
 
-    private void parse(ConsumerRecord<String,Email> record){
+    private void parse(ConsumerRecord<String,Message<Email>> record){
+        var message = record.value();
         System.out.println("------------------------------------");
         System.out.println("Send email");
         System.out.println(record.key());
         System.out.println(record.value());
         System.out.println(record.offset());
+        System.out.println("Email: ");
+        System.out.println(message.getPayload().toString());
         System.out.println("------------------------------------");
         try {
             Thread.sleep(5000);
