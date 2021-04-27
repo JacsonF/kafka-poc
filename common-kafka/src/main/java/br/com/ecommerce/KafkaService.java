@@ -13,20 +13,20 @@ import java.util.UUID;
 import java.util.regex.Pattern;
 
 public class KafkaService<T> implements Closeable {
-    private final KafkaConsumer<String,T> consumer;
+    private final KafkaConsumer<String,Message<T>> consumer;
     private final ConsumerFunction parse;
 
-    public KafkaService(String groupId, String topic, ConsumerFunction parse, Class<T> type, Map<String,String> extraProperties) {
+    public KafkaService(String groupId, String topic, ConsumerFunction<T> parse, Class<T> type, Map<String,String> extraProperties) {
         this(groupId,parse,type,extraProperties);
         consumer.subscribe(Collections.singletonList(topic));
     }
 
-    public KafkaService(String groupId, Pattern topic, ConsumerFunction parse,Class<T> type,Map<String,String> extraProperties) {
+    public KafkaService(String groupId, Pattern topic, ConsumerFunction<T> parse,Class<T> type,Map<String,String> extraProperties) {
         this(groupId,parse,type,extraProperties);
         consumer.subscribe(topic);
     }
 
-    private KafkaService(String groupId, ConsumerFunction parse,Class<T> type,Map<String,String> extraProperties) {
+    private KafkaService(String groupId, ConsumerFunction<T> parse,Class<T> type,Map<String,String> extraProperties) {
         this.parse = parse;
         this.consumer = new KafkaConsumer<>(properties(type,groupId,extraProperties));
     }
@@ -60,8 +60,6 @@ public class KafkaService<T> implements Closeable {
         //Eu preciso passar um grupo para o kafka para ele poder distribuir para mais serviços que tenham esse mesmo grupo
         properties.setProperty(ConsumerConfig.GROUP_ID_CONFIG,groupId);
         properties.setProperty(ConsumerConfig.CLIENT_ID_CONFIG, UUID.randomUUID().toString());
-        properties.setProperty(GsonDeserializer.TYPE_CONFIG, type.getName());
-
         properties.putAll(overrideProperties);
         return properties;
     }
