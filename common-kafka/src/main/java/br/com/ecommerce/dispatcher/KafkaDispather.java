@@ -1,5 +1,7 @@
-package br.com.ecommerce;
+package br.com.ecommerce.dispatcher;
 
+import br.com.ecommerce.CorrelationId;
+import br.com.ecommerce.Message;
 import org.apache.kafka.clients.producer.*;
 import org.apache.kafka.common.serialization.StringSerializer;
 
@@ -12,7 +14,7 @@ public class KafkaDispather<T> implements Closeable {
     private final KafkaProducer<String, Message<T>> producer;
 
 
-    KafkaDispather(){
+    public KafkaDispather(){
         this.producer = new KafkaProducer<>(properties());
     }
     private static Properties properties() {
@@ -25,13 +27,13 @@ public class KafkaDispather<T> implements Closeable {
     }
 
 
-    void send(String topic, String key, CorrelationId id,T payload) throws ExecutionException, InterruptedException {
+    public void send(String topic, String key, CorrelationId id, T payload) throws ExecutionException, InterruptedException {
         Future<RecordMetadata> future = sendAsync(topic, key, id, payload);
         future.get();
     }
 
-    Future<RecordMetadata> sendAsync(String topic, String key, CorrelationId id, T payload) {
-        var value = new Message<T>(id, payload);
+    public Future<RecordMetadata> sendAsync(String topic, String key, CorrelationId id, T payload) {
+        var value = new Message<T>(id.continueWith("_"+topic), payload);
         var record = new ProducerRecord<>(topic,
                 key, value);
         Callback callback = (data, ex) -> {

@@ -1,5 +1,7 @@
 package br.com.ecommerce;
 
+import br.com.ecommerce.consumer.KafkaService;
+import br.com.ecommerce.dispatcher.KafkaDispather;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 
 import java.sql.Connection;
@@ -12,7 +14,8 @@ import java.util.concurrent.ExecutionException;
 
 public class BatchSendMessageService {
     private final Connection connection;
-    private final KafkaDispather<User> userDispatcher =new KafkaDispather<>();
+    private final
+    KafkaDispather<User> userDispatcher =new KafkaDispather<>();
 
     public BatchSendMessageService() throws SQLException {
         String url = "jdbc:sqlite:target/users_database.db";

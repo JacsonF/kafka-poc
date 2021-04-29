@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="service-http" />
         <module name="service-log" />
+        <module name="service-email-new-order" />
         <module name="common-kafka" />
         <module name="service-new-order" />
         <module name="service-new-user" />
