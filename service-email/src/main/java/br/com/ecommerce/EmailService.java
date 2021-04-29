@@ -3,11 +3,12 @@ package br.com.ecommerce;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 public class EmailService {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
         var emailService = new EmailService();
-        try(KafkaService service = new KafkaService(EmailService.class.getSimpleName(), "ECOMMERCE_SEND_EMAIL", emailService::parse,Email.class, Map.of())){
+        try(KafkaService service = new KafkaService(EmailService.class.getSimpleName(), "ECOMMERCE_SEND_EMAIL", emailService::parse, Map.of())){
             service.run();
         }
     }

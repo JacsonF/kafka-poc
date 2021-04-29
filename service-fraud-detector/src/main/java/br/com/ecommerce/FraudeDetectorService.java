@@ -9,10 +9,10 @@ import java.util.concurrent.ExecutionException;
 public class FraudeDetectorService {
     private final KafkaDispather<Order> dispather = new KafkaDispather<>();
 
-    public static void main(String[] args) {
+    public static void main(String[] args)  throws ExecutionException, InterruptedException{
         var fraudeDetectectorService = new FraudeDetectorService();
         try(var service = new KafkaService<Order>(FraudeDetectorService.class.getSimpleName(),"ECOMMERCE_NEW_ORDER"
-                ,fraudeDetectectorService::parse, Order.class, Map.of())){
+                ,fraudeDetectectorService::parse, Map.of())){
             service.run();
         }
     }

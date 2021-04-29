@@ -6,14 +6,15 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 public class ReportService {
 
     private static final Path SOURCE = new File("src/main/resources/report.txt").toPath();
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
         var reportService = new ReportService();
         try(var service = new KafkaService<>(ReportService.class.getSimpleName(),"ECOMMERCE_USER_GENERATE_READING_REPORT"
-                ,reportService::parse, User.class, Map.of())){
+                ,reportService::parse, Map.of())){
             service.run();
         }
     }

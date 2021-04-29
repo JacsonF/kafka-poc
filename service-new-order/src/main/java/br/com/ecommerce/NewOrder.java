@@ -24,12 +24,12 @@ public class NewOrder {
 
 
                     var order = new Order(orderId,amout,email);
-                    dispatcher.send("ECOMMERCE_NEW_ORDER" ,email, order);
+                    dispatcher.send("ECOMMERCE_NEW_ORDER" ,email, new CorrelationId(NewOrder.class.getSimpleName()),order);
 
                     var subject = "jackson@kafka.com";
                     var body = "Tank you for your order! We are processing your order";
                     Email emailCode = new Email(subject,body);
-                    emailDispatcher.send("ECOMMERCE_SEND_EMAIL",email,emailCode);
+                    emailDispatcher.send("ECOMMERCE_SEND_EMAIL",email,new CorrelationId(NewOrder.class.getSimpleName()),emailCode);
                 }
             }
         }
