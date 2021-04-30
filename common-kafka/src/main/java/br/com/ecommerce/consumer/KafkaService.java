@@ -68,6 +68,7 @@ public class KafkaService<T> implements Closeable {
         //Eu preciso passar um grupo para o kafka para ele poder distribuir para mais serviços que tenham esse mesmo grupo
         properties.setProperty(ConsumerConfig.GROUP_ID_CONFIG,groupId);
         properties.setProperty(ConsumerConfig.CLIENT_ID_CONFIG, UUID.randomUUID().toString());
+        properties.setProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest"); //check version kafka
         properties.putAll(overrideProperties);
         return properties;
     }

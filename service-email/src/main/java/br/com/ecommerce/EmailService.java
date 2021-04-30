@@ -1,12 +1,10 @@
 package br.com.ecommerce;
 
-import br.com.ecommerce.consumer.KafkaService;
+import br.com.ecommerce.consumer.ConsumerService;
+import br.com.ecommerce.consumer.ServiceRunner;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 
-import java.util.Map;
-import java.util.concurrent.ExecutionException;
-
-public class EmailService implements ConsumerSerivce<Email>{
+public class EmailService implements ConsumerService<Email> {
     private static final int THREADS = 3;
 
     public static void main(String[] args) {

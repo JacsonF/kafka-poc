@@ -1,6 +1,5 @@
-package br.com.ecommerce;
+package br.com.ecommerce.consumer;
 
-import br.com.ecommerce.consumer.KafkaService;
 import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
