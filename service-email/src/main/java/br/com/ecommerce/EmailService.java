@@ -7,9 +7,10 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 public class EmailService implements ConsumerSerivce<Email>{
-    public static void main(String[] args) throws ExecutionException, InterruptedException {
+    private static final int THREADS = 3;
 
-        new ServiceProvider().run(EmailService::new);
+    public static void main(String[] args) {
+        new ServiceRunner(EmailService::new).start(THREADS);
     }
     public String getTopic(){
         return "ECOMMERCE_SEND_EMAIL";
@@ -17,7 +18,7 @@ public class EmailService implements ConsumerSerivce<Email>{
     public String getConsumerGroup(){
         return EmailService.class.getSimpleName();
     }
-    public void parse(ConsumerRecord<String,Message<Email>> record){
+    public void parse(ConsumerRecord<String,Message<Email>> record) throws InterruptedException {
         var message = record.value();
         System.out.println("------------------------------------");
         System.out.println("Send email");
