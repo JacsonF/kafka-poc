@@ -1,4 +1,4 @@
-package ecommerce;
+package br.com.ecommerce;
 
 public class Email {
     private final String subject, body;

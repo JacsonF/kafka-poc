@@ -51,6 +51,7 @@ public class KafkaService<T> implements Closeable {
                             // ONLY CATCHES EXCEPTION BECAUSE NO MATTER WHICH EXCEPTION
                             // I WANT TO RECOVER AND PARSE TO NEXT ONE
                             // SO FAR JUST LOGGING THE EXEPTION FOR THIS MESSAGE
+                            System.out.println("Error: ");
                             e.printStackTrace();
                         }
                     }

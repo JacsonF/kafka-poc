@@ -6,15 +6,18 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
-public class EmailService {
+public class EmailService implements ConsumerSerivce<Email>{
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-        var emailService = new EmailService();
-        try(KafkaService service = new KafkaService(EmailService.class.getSimpleName(), "ECOMMERCE_SEND_EMAIL", emailService::parse, Map.of())){
-            service.run();
-        }
-    }
 
-    private void parse(ConsumerRecord<String,Message<Email>> record){
+        new ServiceProvider().run(EmailService::new);
+    }
+    public String getTopic(){
+        return "ECOMMERCE_SEND_EMAIL";
+    }
+    public String getConsumerGroup(){
+        return EmailService.class.getSimpleName();
+    }
+    public void parse(ConsumerRecord<String,Message<Email>> record){
         var message = record.value();
         System.out.println("------------------------------------");
         System.out.println("Send email");
