@@ -13,6 +13,7 @@
         <module name="service-new-order" />
         <module name="service-new-user" />
         <module name="service-reading-report" />
+        <module name="common-database" />
         <module name="service-fraud-detector" />
         <module name="service-email" />
       </profile>
