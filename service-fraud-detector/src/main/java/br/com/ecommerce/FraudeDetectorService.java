@@ -58,7 +58,6 @@ public class FraudeDetectorService implements ConsumerService<Order> {
     }
 
     private boolean wasProcessed(Order order) throws SQLException {
-        System.out.println("minhaa order antes de estourar"+order.getOrderId());
         var results = dataBase.query("select uuid from Orders " +
                 "where uuid = ? limit 1", order.getOrderId());
         return results.next();
